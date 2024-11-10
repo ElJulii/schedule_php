@@ -1,0 +1,72 @@
+<div class="container-calendar">
+    <h2>Календарь на {{ currentDate.format('F Y') }}</h2>
+    <table>
+        <tr>
+            {% for day in ['Пн', 'Вт', 'Ср', 'Чт', 'Пц', 'Сб', 'Вс'] %}
+                <th>{{ day }}</th>
+            {% endfor %}
+        </tr>
+        {% for week in weeks %}
+            <tr>
+                {% for day in week %}
+                    <td style="text-align: center; {% if day and day.isWeekend %} background-color: rgba(100, 0, 0, 0.7); {% endif %}">
+                        {% if day %}
+                            {{ day.date.format('j') }}
+                        {% else %}
+                            &nbsp;
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<style>
+
+    body {
+        background: url("https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTd8fHxlbnwwfHx8fHw%3D") center
+    / cover no-repeat fixed;
+        color: #fff;
+    }
+    .container-calendar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h2 {
+        font-size: 65px;
+        text-shadow: 5px 0 10px white;
+    }
+
+    table {
+        font-weight: bold;
+        width: 50vw;
+        height: 50vh;
+        padding: 10px;
+        border: solid 2px black;
+        border-radius: 20px;
+        background-color: rgba(0, 0, 0, 0.7);
+        box-shadow: 20px 5px 40px black;
+    }
+    th {
+        background-color: rgba(100, 0, 100, 0.6);
+    }
+
+    td, th {
+        font-size: 30px;
+        border-radius: 5px;
+        box-shadow: 0 0  10px black;
+    }
+
+    td:hover {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    th:hover {
+        background-color: rgba(100, 0, 100, 10);
+    }
+
+</style>

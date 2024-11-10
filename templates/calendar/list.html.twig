@@ -1,0 +1,53 @@
+<div class="container-calendar">
+    <h2>Календарь на {{ currentDate|date("F Y", "Europe/Moscow")|trans({}, 'messages', 'ru') }}</h2>
+    <ul>
+        {% for week in weeks %}
+            {% for day in week %}
+                {% if day %}
+                    <li style="color: {% if day.isWeekend %} red {% else %} white {% endif %};">
+                        {{ day.date.format('l, j') }}
+                    </li>
+                {% else %}
+                    <li style="list-style: none">&nbsp;</li>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+
+<style>
+    body {
+        background-color: #000;
+        color: #fff;
+    }
+    h2 {
+        font-size: 75px;
+        text-shadow: 5px 5px 10px white;
+    }
+    .container-calendar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        width: 60%;
+        height: 60vh;
+        gap: 10px;
+        border-bottom: solid 3px white;
+        padding-bottom: 10px;
+    }
+    li {
+        font-family: "Times New Roman", sans-serif;
+        font-size: 30px;
+        width: 20%;
+    }
+
+    li::marker {
+        color: #ddd;
+    }
+
+</style>
