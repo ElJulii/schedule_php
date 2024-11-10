@@ -9,7 +9,7 @@
         {% for week in weeks %}
             <tr>
                 {% for day in week %}
-                    <td style="text-align: center; {% if day and day.isWeekend %}; {% endif %}">
+                    <td style="text-align: center; {% if day and day.isToday %} color: #0df; {% endif %}">
                         {% if day %}
                             {{ day.date.format('j') }}
                         {% else %}
@@ -21,6 +21,7 @@
         {% endfor %}
     </table>
 </div>
+
 
 <style>
 

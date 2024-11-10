@@ -4,7 +4,8 @@
         {% for week in weeks %}
             {% for day in week %}
                 {% if day %}
-                    <li style="color: {% if day.isWeekend %} red {% else %} white {% endif %};">
+                    <li style="color: {% if day.isToday %} #0df {% elseif day.isWeekend %}  red {% else %} white {% endif %};
+                            text-decoration: {% if day.isToday %} underline {% else %} none {% endif %}">
                         {{ day.date.format('l, j') }}
                     </li>
                 {% else %}

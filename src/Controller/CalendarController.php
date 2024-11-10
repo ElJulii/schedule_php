@@ -15,6 +15,7 @@ class CalendarController extends AbstractController
     public function index(Request $request, string $viewType, ?int $month): Response
     {
         $currentDate = new \DateTime();
+        $dayOfToday = date('Y-m-d');
 
         if ($month) {
             $currentDate->setDate($currentDate->format('Y'), $month, 1);
@@ -26,7 +27,7 @@ class CalendarController extends AbstractController
         //Количество дней в месяце
         $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentDate->format('m'), $currentDate->format('Y'));
         $calendarDays = [];
-
+        $today = new \DateTime();
         // Добавлять свободные места до первого дня месяца
         for ($i = 1; $i < $firstDayOfWeek; $i++) {
             $calendarDays[] = null;
@@ -35,9 +36,13 @@ class CalendarController extends AbstractController
         // Добавлять остальные дни
         for ($day = 1; $day <= $daysInMonth; $day++) {
             $date = (clone $currentDate)->setDate($currentDate->format('Y'), $currentDate->format('m'), $day);
+
+            $isToday = $date->format('Y-m-d') === $today->format('Y-m-d');
+
             $calendarDays[] = [
                 'date' => $date,
                 'isWeekend' => in_array($date->format('N'), [6, 7]), // Sábado y domingo
+                'isToday' => $isToday
             ];
         }
 
@@ -45,7 +50,7 @@ class CalendarController extends AbstractController
 
         return $this->render("calendar/" . $viewType . ".html.twig", [
             'weeks' => $weeks,
-            'currentDate' => $currentDate
+            'currentDate' => $currentDate,
         ]);
     }
 
